@@ -1,0 +1,53 @@
+diff --git a/node_modules/unfurl.js/dist/index.js b/node_modules/unfurl.js/dist/index.js
+index 751d2f1..e68348f 100644
+--- a/node_modules/unfurl.js/dist/index.js
++++ b/node_modules/unfurl.js/dist/index.js
+@@ -37,7 +37,7 @@ exports.unfurl = unfurl;
+ async function getPage(url, opts) {
+     const res = await (opts.fetch
+         ? opts.fetch(url)
+-        : (0, node_fetch_1.default)(new url_1.URL(url), {
++        : (0, node_fetch_1.default)(new URL(url), {
+             headers: opts.headers,
+             size: opts.size,
+             follow: opts.follow,
+@@ -99,7 +99,7 @@ function getRemoteMetadata(url) {
+         if (!oembed) {
+             return metadata;
+         }
+-        const target = new url_1.URL((0, he_1.decode)(oembed.href), url);
++        const target = new URL((0, he_1.decode)(oembed.href), url);
+         let res = await (0, node_fetch_1.default)(target.href);
+         let contentType = res.headers.get("Content-Type");
+         const status = res.status;
+@@ -198,18 +198,18 @@ function getMetadata(url, opts) {
+             const parser = new htmlparser2_1.Parser({
+                 onend: function () {
+                     if (parserContext.favicon === undefined) {
+-                        metadata.push(["favicon", new url_1.URL("/favicon.ico", url).href]);
++                        metadata.push(["favicon", new URL("/favicon.ico", url).href]);
+                     }
+                     else {
+                         metadata.push([
+                             "favicon",
+-                            new url_1.URL(parserContext.favicon, url).href,
++                            new URL(parserContext.favicon, url).href,
+                         ]);
+                     }
+                     if (parserContext.canonical_url) {
+                         metadata.push([
+                             "canonical_url",
+-                            new url_1.URL(parserContext.canonical_url, url).href,
++                            new URL(parserContext.canonical_url, url).href,
+                         ]);
+                     }
+                     resolve({ oembed, metadata });
+@@ -336,7 +336,7 @@ function parse(url) {
+                 metaValue = parseInt(metaValue, 10);
+             }
+             else if (item.type === "url" && metaValue) {
+-                metaValue = new url_1.URL(metaValue, url).href;
++                metaValue = new URL(metaValue, url).href;
+             }
+             if (parsed[item.entry] === undefined) {
+                 parsed[item.entry] = {};
