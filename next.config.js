@@ -5,6 +5,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: "https",

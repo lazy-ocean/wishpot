@@ -1,15 +1,13 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSupabase } from "../../../utils/supabase";
-import { definitions } from "../../../types/supabase";
-import { unfurl } from "unfurl.js";
-import { Metadata } from "unfurl.js/dist/types";
+import Link from "next/link";
+import { OgObject } from "open-graph-scraper/dist/lib/types";
 
-const Main = ({ items }: { items: definitions["items"][] }) => {
+const Main = ({ items }: { items: OgObject[] }) => {
   const { user, error, isLoading } = useUser();
   const [content, setContent] = useState("");
-  const [itemss, setItems] = useState<Metadata[]>();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,40 +18,15 @@ const Main = ({ items }: { items: definitions["items"][] }) => {
     setContent("");
   };
 
-  /*   useEffect(() => {
-    const getData = async (items: definitions["items"][]) => {
-      try {
-        const parsedContent = await Promise.all(
-          items?.map(async (item) => {
-            if (item.content?.includes("https")) {
-              const meow = await unfurl(item.content);
-              return meow;
-            }
-            return item;
-          })
-        )
-        setItems(parsedContent as Metadata[]);
-      } catch (e) {
-        console.log(e)
-      }
-      
-    };
-    getData(items);
-  }, [items]); */
-
-  useEffect(() => {
-    console.log(items);
-  }, [itemss]);
-
   return (
     <main>
       {user ? (
         <button>
-          <a href="/api/auth/logout">Logout</a>
+          <Link href="/api/auth/logout">Logout</Link>
         </button>
       ) : (
         <button>
-          <a href="/api/auth/login">Login</a>
+          <Link href="/api/auth/login">Login</Link>
         </button>
       )}
 
@@ -78,12 +51,12 @@ const Main = ({ items }: { items: definitions["items"][] }) => {
             items.map((item, i) => (
               <div key={i}>
                 <Image
-                  src={item?.ogImage?.[0]?.url}
-                  alt={item?.ogTitle}
+                  src={item?.ogImage?.[0]?.url ?? "https://placehold.co/100"}
+                  alt={item?.ogTitle ?? "alt"}
                   width={100}
                   height={100}
                 />
-                <p>{item?.ogTitle || item.title}</p>
+                <p>{item?.ogTitle || "placeholder"}</p>
               </div>
             ))}
         </div>

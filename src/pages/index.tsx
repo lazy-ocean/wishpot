@@ -6,11 +6,10 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles, theme } from "../theme";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Session } from "@auth0/nextjs-auth0/src/session";
-import { definitions } from "../../types/supabase";
-import { unfurl } from "unfurl.js";
 import ogs from "open-graph-scraper";
+import { OgObject } from "open-graph-scraper/dist/lib/types";
 
-const Home = ({ items }: { items: definitions["items"][] }) => {
+const Home = ({ items }: { items: OgObject[] }) => {
   return (
     <div>
       <Head>
@@ -36,14 +35,7 @@ export const getServerSideProps = withPageAuthRequired({
 
     const { data: items } = await supabase.from("items").select("*");
     let content = items;
-    /*     ogs({
-      url: "https://github.com/jshemas/openGraphScraper",
-    })
-      .then((data) => {
-        const { result } = data;
-        console.log(result); // hostnameMetaTag: github.com
-      })
-      .catch((e) => console.log(e)); */
+
     if (items) {
       try {
         const parsedContent = await Promise.all(
@@ -61,7 +53,6 @@ export const getServerSideProps = withPageAuthRequired({
       }
     }
 
-    console.log(content);
     return {
       props: { items: content },
     };
