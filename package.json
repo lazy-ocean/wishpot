@@ -9,8 +9,7 @@
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "prepare": "husky install",
-    "types": "eval $(grep '^NEXT_PUBLIC_SUPABASE_URL' .env.local) && eval $(grep '^NEXT_PUBLIC_SUPABASE_KEY' .env.local) && npx openapi-typescript@5.4.0 ${NEXT_PUBLIC_SUPABASE_URL}/rest/v1/?apikey=${NEXT_PUBLIC_SUPABASE_KEY} --output types/supabase.ts",
-    "postinstall": "patch-package"
+    "types": "eval $(grep '^NEXT_PUBLIC_SUPABASE_URL' .env.local) && eval $(grep '^NEXT_PUBLIC_SUPABASE_KEY' .env.local) && npx openapi-typescript@5.4.0 ${NEXT_PUBLIC_SUPABASE_URL}/rest/v1/?apikey=${NEXT_PUBLIC_SUPABASE_KEY} --output types/supabase.ts"
   },
   "husky": {
     "hooks": {

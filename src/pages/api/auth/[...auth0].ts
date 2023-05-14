@@ -1,4 +1,4 @@
-import { handleAuth, handleCallback } from "@auth0/nextjs-auth0";
+import { handleAuth, handleCallback, handleLogin } from "@auth0/nextjs-auth0";
 import jwt from "jsonwebtoken";
 import { Session } from "@auth0/nextjs-auth0/src/session/index";
 import { NextApiRequest } from "next";
@@ -18,7 +18,7 @@ const afterCallback = (
     payload,
     process.env.SUPABASE_SIGNING_SECRET!
   );
-  console.log(session);
+
   return session;
 };
 
@@ -31,5 +31,11 @@ export default handleAuth({
         res.status((error.cause as number) || 500).end(error.message);
       return String(error);
     }
+  },
+
+  async login(req, res) {
+    await handleLogin(req, res, {
+      returnTo: "/wishes",
+    });
   },
 });
