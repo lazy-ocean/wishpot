@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSupabase } from "../../utils/supabase";
 import Link from "next/link";
-import { OgObject } from "open-graph-scraper/dist/lib/types";
+import { OgObject, ImageObject } from "open-graph-scraper/dist/lib/types";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import ogs from "open-graph-scraper";
 import { Session } from "@auth0/nextjs-auth0/src/session";
@@ -50,7 +50,10 @@ const Wishes = ({ items }: { items: OgObject[] }) => {
             items.map((item, i) => (
               <div key={i}>
                 <Image
-                  src={item?.ogImage?.[0]?.url ?? "https://placehold.co/100"}
+                  src={
+                    (item?.ogImage as ImageObject)?.url ??
+                    "https://placehold.co/100"
+                  }
                   alt={item?.ogTitle ?? "alt"}
                   width={100}
                   height={100}
