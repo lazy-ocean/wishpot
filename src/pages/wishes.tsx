@@ -31,12 +31,7 @@ const Wishes = ({ items }: { items: OgObject[] }) => {
 
       {!error && !isLoading && user && (
         <div>
-          <Image
-            src={user.picture as string}
-            alt={user.name as string}
-            width={100}
-            height={100}
-          />
+          <Image src={user.picture} alt={user.name} width={100} height={100} />
           <h2>{user.name}</h2>
           <p>{user.email}</p>
           <form onSubmit={handleSubmit}>

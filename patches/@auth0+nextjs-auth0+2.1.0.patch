@@ -1,0 +1,58 @@
+diff --git a/node_modules/@auth0/nextjs-auth0/src/auth0-session/index.ts b/node_modules/@auth0/nextjs-auth0/src/auth0-session/index.ts
+index fad584a..4b17f23 100644
+--- a/node_modules/@auth0/nextjs-auth0/src/auth0-session/index.ts
++++ b/node_modules/@auth0/nextjs-auth0/src/auth0-session/index.ts
+@@ -6,13 +6,20 @@ export {
+   ApplicationError
+ } from './utils/errors';
+ export { StatelessSession } from './session/stateless-session';
+-export { AbstractSession, SessionPayload } from './session/abstract-session';
+-export { StatefulSession, SessionStore } from './session/stateful-session';
++export { AbstractSession } from './session/abstract-session';
++export type { SessionPayload } from './session/abstract-session';
++export { StatefulSession } from './session/stateful-session';
++export type { SessionStore } from './session/stateful-session';
+ export { default as TransientStore } from './transient-store';
+-export { Config, SessionConfig, CookieConfig, LoginOptions, LogoutOptions, AuthorizationParameters } from './config';
+-export { get as getConfig, ConfigParameters, DeepPartial } from './get-config';
+-export { default as loginHandler, HandleLogin } from './handlers/login';
+-export { default as logoutHandler, HandleLogout } from './handlers/logout';
+-export { default as callbackHandler, CallbackOptions, AfterCallback, HandleCallback } from './handlers/callback';
+-export { default as clientFactory, ClientFactory } from './client';
+-export { SessionCache } from './session-cache';
++export type { Config, SessionConfig, CookieConfig, LoginOptions, LogoutOptions, AuthorizationParameters } from './config';
++export { get as getConfig } from './get-config';
++export type { ConfigParameters, DeepPartial } from './get-config';
++export { default as loginHandler } from './handlers/login';
++export type { HandleLogin } from './handlers/login';
++export { default as logoutHandler } from './handlers/logout';
++export type { HandleLogout } from './handlers/logout';
++export { default as callbackHandler } from './handlers/callback';
++export type { CallbackOptions, AfterCallback, HandleCallback } from './handlers/callback';
++export { default as clientFactory } from './client';
++export type { ClientFactory } from './client';
++export type { SessionCache } from './session-cache';
+diff --git a/node_modules/@auth0/nextjs-auth0/src/session/index.ts b/node_modules/@auth0/nextjs-auth0/src/session/index.ts
+index 7c8b2dc..097cdf3 100644
+--- a/node_modules/@auth0/nextjs-auth0/src/session/index.ts
++++ b/node_modules/@auth0/nextjs-auth0/src/session/index.ts
+@@ -1,10 +1,15 @@
+-export { default as Session, Claims, fromJson, fromTokenSet } from './session';
+-export { default as sessionFactory, GetSession } from './get-session';
++export { default as Session, fromJson, fromTokenSet } from './session';
++export type { Claims } from './session';
++export { default as sessionFactory } from './get-session';
++export type { GetSession } from './get-session';
+ export {
+-  default as accessTokenFactory,
++  default as accessTokenFactory
++} from './get-access-token';
++export type {
+   GetAccessToken,
+   AccessTokenRequest,
+   GetAccessTokenResult
+ } from './get-access-token';
+ export { default as SessionCache } from './cache';
+-export { default as updateSessionFactory, UpdateSession } from './update-session';
++export { default as updateSessionFactory } from './update-session';export type { UpdateSession } from './update-session';
++

@@ -1,6 +1,6 @@
 import { handleAuth, handleCallback, handleLogin } from "@auth0/nextjs-auth0";
 import jwt from "jsonwebtoken";
-import { Session } from "@auth0/nextjs-auth0/src/session/index";
+import { Session } from "@auth0/nextjs-auth0/src/session";
 import { NextApiRequest } from "next";
 import { ServerResponse } from "http";
 
