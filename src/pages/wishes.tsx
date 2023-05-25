@@ -3,10 +3,12 @@ import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSupabase } from "../../utils/supabase";
 import Link from "next/link";
-import { OgObject, ImageObject } from "open-graph-scraper/dist/lib/types";
+import { OgObject } from "open-graph-scraper/dist/lib/types";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import ogs from "open-graph-scraper";
 import { Session } from "@auth0/nextjs-auth0/src/session";
+import Card from "../components/Card/Card";
+import { FilteredResponse } from "../../types";
 
 const Wishes = ({ items }: { items: OgObject[] }) => {
   const { user, error, isLoading } = useUser();
@@ -41,21 +43,7 @@ const Wishes = ({ items }: { items: OgObject[] }) => {
             />
             <button>Add</button>
           </form>
-          {items &&
-            items.map((item, i) => (
-              <div key={i}>
-                <Image
-                  src={
-                    (item?.ogImage as ImageObject)?.url ??
-                    "https://placehold.co/100"
-                  }
-                  alt={item?.ogTitle ?? "alt"}
-                  width={100}
-                  height={100}
-                />
-                <p>{item?.ogTitle || "placeholder"}</p>
-              </div>
-            ))}
+          {items && items.map((item, i) => <Card item={item} key={i} />)}
         </div>
       )}
     </main>
@@ -74,16 +62,25 @@ export const getServerSideProps = withPageAuthRequired({
 
     if (items) {
       try {
-        const parsedContent = await Promise.all(
+        const withTimeout = (millis: number, promise: Promise<unknown>) => {
+          const timeout = new Promise((resolve, reject) =>
+            setTimeout(() => reject(`Timed out`), millis)
+          );
+          return Promise.race([promise, timeout]);
+        };
+
+        const parsedContent = await Promise.allSettled(
           items?.map(async (item) => {
             if (item.content?.includes("https")) {
-              const meow = await ogs({ url: item.content });
-              return meow.result;
+              const data = await withTimeout(3000, ogs({ url: item.content }));
+              return ((data as { result: OgObject }).result ||
+                null) as FilteredResponse;
             }
             return item;
           })
         );
-        content = parsedContent;
+
+        content = parsedContent.map((v) => v.status === "fulfilled" && v.value);
       } catch (e) {
         console.log(e);
       }
