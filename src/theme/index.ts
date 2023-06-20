@@ -24,8 +24,11 @@ export const theme: DefaultTheme = {
   },
 };
 
+/* dark bg = #323022 */
+/* accent: rgb(237 133 133)
+rgb(138 133 237) */
 export const GlobalStyles = createGlobalStyle`
   body {
-    background-color: ${({ theme }) => theme.palette.bg};
+    background-color: #f8c948;
   }
 `;

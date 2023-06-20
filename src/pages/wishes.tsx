@@ -9,6 +9,8 @@ import ogs from "open-graph-scraper";
 import { Session } from "@auth0/nextjs-auth0/src/session";
 import Card from "../components/Card/Card";
 import { FilteredResponse } from "../../types";
+import { Cards } from "../components/Card/card.styled";
+import { Blobs } from "../components/Blobs/Blobs";
 
 const Wishes = ({ items }: { items: OgObject[] }) => {
   const { user, error, isLoading } = useUser();
@@ -32,7 +34,8 @@ const Wishes = ({ items }: { items: OgObject[] }) => {
       )}
 
       {!error && !isLoading && user && (
-        <div>
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          <Blobs />
           <Image src={user.picture} alt={user.name} width={100} height={100} />
           <h2>{user.name}</h2>
           <p>{user.email}</p>
@@ -43,7 +46,9 @@ const Wishes = ({ items }: { items: OgObject[] }) => {
             />
             <button>Add</button>
           </form>
-          {items && items.map((item, i) => <Card item={item} key={i} />)}
+          <Cards>
+            {items && items.map((item, i) => <Card item={item} key={i} />)}
+          </Cards>
         </div>
       )}
     </main>

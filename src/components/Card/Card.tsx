@@ -1,18 +1,21 @@
 import React from "react";
-import Image from "next/image";
 import { ImageObject } from "open-graph-scraper/dist/lib/types";
+import { Container, ItemImage, Wrapper } from "./card.styled";
 
 const Card = ({ item }) => {
+  console.log(item);
   return (
-    <div>
-      <Image
+    <Wrapper>
+      <ItemImage
         src={(item?.ogImage as ImageObject)?.url ?? "https://placehold.co/100"}
         alt={item?.ogTitle ?? "alt"}
-        width={100}
-        height={100}
+        width={160}
+        height={160}
       />
-      <p>{item?.ogTitle || "placeholder"}</p>
-    </div>
+      <Container>
+        <p>{item?.ogTitle || "placeholder"}</p>
+      </Container>
+    </Wrapper>
   );
 };
 
