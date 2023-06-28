@@ -3,7 +3,6 @@ import { ImageObject } from "open-graph-scraper/dist/lib/types";
 import { Container, ItemImage, Wrapper } from "./card.styled";
 
 const Card = ({ item }) => {
-  console.log(item);
   return (
     <Wrapper>
       <ItemImage

@@ -11,8 +11,9 @@ import Card from "../components/Card/Card";
 import { FilteredResponse } from "../../types";
 import { Cards } from "../components/Card/card.styled";
 import { Blobs } from "../components/Blobs/Blobs";
+import { ThemeSwitcher } from "../components/ThemeSwitcher/ThemeSwitcher";
 
-const Wishes = ({ items }: { items: OgObject[] }) => {
+const Wishes = ({ items, theme, setTheme }: { items: OgObject[] }) => {
   const { user, error, isLoading } = useUser();
   const [content, setContent] = useState("");
 
@@ -32,13 +33,19 @@ const Wishes = ({ items }: { items: OgObject[] }) => {
           <Link href="/api/auth/logout">Logout</Link>
         </button>
       )}
-
+      <ThemeSwitcher theme={theme} setTheme={setTheme} />
       {!error && !isLoading && user && (
-        <div style={{ position: "relative", overflow: "hidden" }}>
+        <div
+          style={{
+            position: "relative",
+            overflow: "hidden",
+            minHeight: "100vh",
+          }}
+        >
           <Blobs />
-          <Image src={user.picture} alt={user.name} width={100} height={100} />
+          {/* <Image src={user.picture} alt={user.name} width={100} height={100} />
           <h2>{user.name}</h2>
-          <p>{user.email}</p>
+          <p>{user.email}</p> */}
           <form onSubmit={handleSubmit}>
             <input
               onChange={(e) => setContent(e.target.value)}

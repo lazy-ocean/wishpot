@@ -1,8 +1,10 @@
 import React from "react";
 import blobOptions from "./BlobOptions";
 import { placeItemsOnMatrix, getRandomValue } from "./utils";
+import useTheme, { ThemeType } from "../../utils/hooks/useTheme";
+import { DarkTheme, LightTheme } from "../../theme";
 
-const BLOBS_COUNT = 18;
+const BLOBS_COUNT = 17;
 
 export const Blob = ({
   id,
@@ -51,14 +53,23 @@ export const Blob = ({
 
 export const Blobs = () => {
   const items = placeItemsOnMatrix(BLOBS_COUNT);
+  const { theme } = useTheme();
 
   return (
     <>
       {items.map(({ x, y }, i) => (
         <Blob
           id={`${i}_blob`}
-          color1="rgb(238, 205, 163)"
-          color2="rgb(211,133,237)"
+          color1={
+            theme === ThemeType.dark
+              ? DarkTheme.palette.blobsTint
+              : LightTheme.palette.blobsTint
+          }
+          color2={
+            theme === ThemeType.dark
+              ? DarkTheme.palette.pink
+              : LightTheme.palette.pink
+          }
           key={i}
           top={x}
           left={y}
