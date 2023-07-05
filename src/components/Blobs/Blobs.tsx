@@ -1,8 +1,9 @@
 import React from "react";
 import blobOptions from "./BlobOptions";
 import { placeItemsOnMatrix, getRandomValue } from "./utils";
-import useTheme, { ThemeType } from "../../utils/hooks/useTheme";
+import { ThemeType } from "../../utils/hooks/useTheme";
 import { DarkTheme, LightTheme } from "../../theme";
+import { BlobsWrapper } from "./Blobs.styled";
 
 const BLOBS_COUNT = 17;
 
@@ -51,12 +52,11 @@ export const Blob = ({
   </svg>
 );
 
-export const Blobs = () => {
+export const Blobs = ({ theme }: { theme: ThemeType }) => {
   const items = placeItemsOnMatrix(BLOBS_COUNT);
-  const { theme } = useTheme();
 
   return (
-    <>
+    <BlobsWrapper>
       {items.map(({ x, y }, i) => (
         <Blob
           id={`${i}_blob`}
@@ -76,6 +76,6 @@ export const Blobs = () => {
           i={i}
         />
       ))}
-    </>
+    </BlobsWrapper>
   );
 };

@@ -59,7 +59,7 @@ export const DarkTheme: DefaultTheme = {
   palette: {
     bg: "rgb(30, 29, 24)",
     blobsTint: "rgb(50, 48, 34)",
-    pink: "rgb(200, 118, 227)",
+    pink: "rgb(84, 47, 97)",
     bgCard: "rgb(70, 46, 74)",
     font: "rgb(212, 212, 212)",
   },

@@ -8,7 +8,7 @@ export const Container = styled.div`
   border: 2px solid ${({ theme }) => theme.palette.font};
   min-width: 50%;
 
-  p {
+  a {
     font-family: var(--h-font);
     font-size: clamp(0.8rem, 1rem, 1rem);
   }
@@ -27,9 +27,16 @@ export const Cards = styled.div`
 `;
 
 export const ItemImage = styled(Image)`
+  display: block;
   object-fit: cover;
   border: 2px solid ${({ theme }) => theme.palette.font};
+  border-bottom: 0;
   grid-area: 1 / 1 / 2 / 2;
+
+  ${({ theme }) => `
+  @media only screen and ${theme.breakpoints.desktop}{
+    border: 2px solid ${theme.palette.font};
+  }`}
 `;
 
 export const Wrapper = styled.div`

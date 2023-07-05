@@ -1,8 +1,6 @@
 import React, { FormEvent, useState } from "react";
-import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSupabase } from "../../utils/supabase";
-import Link from "next/link";
 import { OgObject } from "open-graph-scraper/dist/lib/types";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import ogs from "open-graph-scraper";
@@ -10,12 +8,10 @@ import { Session } from "@auth0/nextjs-auth0/src/session";
 import Card from "../components/Card/Card";
 import { FilteredResponse } from "../../types";
 import { Cards } from "../components/Card/card.styled";
-import { Blobs } from "../components/Blobs/Blobs";
-import { ThemeSwitcher } from "../components/ThemeSwitcher/ThemeSwitcher";
 
-const Wishes = ({ items, theme, setTheme }: { items: OgObject[] }) => {
+const Wishes = ({ items }: { items: OgObject[] }) => {
   const { user, error, isLoading } = useUser();
-  const [content, setContent] = useState("");
+  /*   const [content, setContent] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,35 +20,22 @@ const Wishes = ({ items, theme, setTheme }: { items: OgObject[] }) => {
       .from("items")
       .insert({ title: "test title", content, user_id: user?.sub });
     setContent("");
-  };
+  }; */
 
   return (
     <main>
-      {user && (
-        <button>
-          <Link href="/api/auth/logout">Logout</Link>
-        </button>
-      )}
-      <ThemeSwitcher theme={theme} setTheme={setTheme} />
       {!error && !isLoading && user && (
-        <div
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            minHeight: "100vh",
-          }}
-        >
-          <Blobs />
+        <div>
           {/* <Image src={user.picture} alt={user.name} width={100} height={100} />
           <h2>{user.name}</h2>
           <p>{user.email}</p> */}
-          <form onSubmit={handleSubmit}>
+          {/*           <form onSubmit={handleSubmit}>
             <input
               onChange={(e) => setContent(e.target.value)}
               value={content}
             />
             <button>Add</button>
-          </form>
+          </form> */}
           <Cards>
             {items && items.map((item, i) => <Card item={item} key={i} />)}
           </Cards>
@@ -70,7 +53,7 @@ export const getServerSideProps = withPageAuthRequired({
     const supabase = getSupabase(accessToken as string);
 
     const { data: items } = await supabase.from("items").select("*");
-    let content = items;
+    let content = null;
 
     if (items) {
       try {
@@ -99,7 +82,7 @@ export const getServerSideProps = withPageAuthRequired({
     }
 
     return {
-      props: { items: content },
+      props: { items: content || items },
     };
   },
 });
