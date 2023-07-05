@@ -7,6 +7,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.palette.bgCard};
   border: 2px solid ${({ theme }) => theme.palette.font};
   min-width: 50%;
+  flex-direction: column;
 
   a {
     font-family: var(--h-font);

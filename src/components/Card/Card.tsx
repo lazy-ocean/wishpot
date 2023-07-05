@@ -2,6 +2,7 @@ import React from "react";
 import { ImageObject } from "open-graph-scraper/dist/lib/types";
 import { Container, ItemImage, Wrapper } from "./card.styled";
 import { OgObject } from "open-graph-scraper/dist/lib/types";
+import { RegularText } from "../../theme/typography";
 
 const Card = ({ item }: { item: OgObject }) => {
   return (
@@ -18,6 +19,7 @@ const Card = ({ item }: { item: OgObject }) => {
       </a>
       <Container>
         <a>{item?.ogTitle || "placeholder"}</a>
+        <RegularText>{item.ogDescription}</RegularText>
       </Container>
     </Wrapper>
   );
