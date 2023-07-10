@@ -8,6 +8,7 @@ export const Container = styled.div`
   border: 2px solid ${({ theme }) => theme.palette.font};
   min-width: 50%;
   flex-direction: column;
+  margin-left: 0px;
 
   a {
     font-family: var(--h-font);
@@ -16,7 +17,7 @@ export const Container = styled.div`
 
   ${({ theme }) => `
   @media only screen and ${theme.breakpoints.desktop}{
-    border-left: 0;
+    margin-left: -2px;
   }`}
 `;
 
@@ -45,10 +46,13 @@ export const Wrapper = styled.div`
   align-items: flex-start;
   position: relative;
   flex-direction: column;
+  width: 100%;
+  container: card;
 
   ${({ theme }) => `
   @media only screen and ${theme.breakpoints.desktop}{
     flex-direction: row;
     align-items: flex-end;
+    width: 60%;
   }`}
 `;

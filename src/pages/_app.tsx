@@ -27,11 +27,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             --h-font: ${myFont.style.fontFamily};
             --r-font: ${typographyFont.style.fontFamily};
           }
-
-          #__next {
-            position: relative,
-            overflow: hidden,
-          }
         `}</style>
 
         <Header>

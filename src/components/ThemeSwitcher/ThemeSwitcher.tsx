@@ -1,4 +1,5 @@
 import { ThemeType } from "../../utils/hooks/useTheme";
+import { Switcher } from "./ThemeSwitcher.styled";
 
 export const ThemeSwitcher = ({
   theme,
@@ -8,12 +9,11 @@ export const ThemeSwitcher = ({
   setTheme: (arg0: ThemeType) => void;
 }) => {
   return (
-    <button
-      onClick={() =>
+    <Switcher
+      toggled={theme === ThemeType.light}
+      toggle={() =>
         setTheme(theme === ThemeType.light ? ThemeType.dark : ThemeType.light)
       }
-    >
-      {ThemeType.light ? ThemeType.light : ThemeType.dark}
-    </button>
+    />
   );
 };

@@ -14,3 +14,8 @@ a {
   margin: 0px;
   padding: 0px;
 }
+
+#__next {
+  position: relative;
+  overflow: hidden;
+}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
@@ -6,8 +7,22 @@ export const HeaderContainer = styled.header`
   justify-content: flex-end;
   background: transparent;
   z-index: 100;
-  /*   background: ${({ theme }) =>
-    `linear-gradient(${theme.palette.pink}, 30%, ${theme.palette.bg})`}; */
-  /*   background-color: ${({ theme }) => theme.palette.pink}; */
-  /*  border-bottom: 2px solid ${({ theme }) => theme.palette.font}; */
+  position: relative;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacings.xs};
+`;
+
+export const UserPanel = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacings.xxs};
+  align-items: center;
+`;
+
+export const UserIcon = styled(Image)`
+  border-radius: 50%;
+`;
+
+export const UserData = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

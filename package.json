@@ -20,6 +20,7 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "2.1.0",
     "@supabase/supabase-js": "^2.21.0",
+    "@theme-toggles/react": "^4.1.0",
     "@types/auth0": "^3.3.2",
     "hoist-non-react-statics": "^3.3.2",
     "jsonwebtoken": "^9.0.0",
