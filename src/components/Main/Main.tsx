@@ -6,7 +6,7 @@ const Main = () => {
   const { user, error, isLoading } = useUser();
 
   return (
-    <main>
+    <main style={{ position: "relative", zIndex: "1", height: "100vh" }}>
       <p>Index page</p>
       {user && !error && !isLoading ? (
         <button>

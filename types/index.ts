@@ -4,3 +4,10 @@ export interface FilteredResponse {
   value: OgObject[];
   status: "fulfilled" | "rejected";
 }
+
+export interface Wish {
+  url: string;
+  image?: string;
+  title?: string;
+  description?: string;
+}

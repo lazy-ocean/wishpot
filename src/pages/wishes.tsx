@@ -1,45 +1,36 @@
-import React, { FormEvent, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSupabase } from "../../utils/supabase";
-import { OgObject } from "open-graph-scraper/dist/lib/types";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import ogs from "open-graph-scraper";
 import { Session } from "@auth0/nextjs-auth0/src/session";
 import Card from "../components/Card/Card";
-import { FilteredResponse } from "../../types";
+import { Wish } from "../../types";
 import { Cards } from "../components/Card/card.styled";
+import { AddWishForm } from "../components/AddForm/AddForm";
 
-const Wishes = ({ items }: { items: OgObject[] }) => {
+const Wishes = ({ items }: { items: Wish[] }) => {
   const { user, error, isLoading } = useUser();
-  /*   const [content, setContent] = useState("");
+  const [wishes, setWishes] = useState<Wish[]>(items);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const supabase = getSupabase(user?.accessToken as string);
-    await supabase
-      .from("items")
-      .insert({ title: "test title", content, user_id: user?.sub });
-    setContent("");
-  }; */
+  const handleAddedWishes = useCallback(
+    (newWish) => {
+      const newWishes = [newWish, ...wishes];
+      setWishes(newWishes);
+    },
+    [setWishes, wishes]
+  );
 
   return (
     <main>
-      {!error && !isLoading && user && (
-        <div>
-          {/* <Image src={user.picture} alt={user.name} width={100} height={100} />
+      {/* <Image src={user.picture} alt={user.name} width={100} height={100} />
           <h2>{user.name}</h2>
           <p>{user.email}</p> */}
-          {/*           <form onSubmit={handleSubmit}>
-            <input
-              onChange={(e) => setContent(e.target.value)}
-              value={content}
-            />
-            <button>Add</button>
-          </form> */}
-          <Cards>
-            {items && items.map((item, i) => <Card item={item} key={i} />)}
-          </Cards>
-        </div>
+
+      {!error && !isLoading && user && (
+        <Cards>
+          <AddWishForm user={user} setWishes={handleAddedWishes} />
+          {wishes && wishes.map((item, i) => <Card item={item} key={i} />)}
+        </Cards>
       )}
     </main>
   );
@@ -53,36 +44,9 @@ export const getServerSideProps = withPageAuthRequired({
     const supabase = getSupabase(accessToken as string);
 
     const { data: items } = await supabase.from("items").select("*");
-    let content = null;
-
-    if (items) {
-      try {
-        const withTimeout = (millis: number, promise: Promise<unknown>) => {
-          const timeout = new Promise((resolve, reject) =>
-            setTimeout(() => reject(`Timed out`), millis)
-          );
-          return Promise.race([promise, timeout]);
-        };
-
-        const parsedContent = await Promise.allSettled(
-          items?.map(async (item) => {
-            if (item.content?.includes("https")) {
-              const data = await withTimeout(3000, ogs({ url: item.content }));
-              return ((data as { result: OgObject }).result ||
-                null) as FilteredResponse;
-            }
-            return item;
-          })
-        );
-
-        content = parsedContent.map((v) => v.status === "fulfilled" && v.value);
-      } catch (e) {
-        console.log(e);
-      }
-    }
 
     return {
-      props: { items: content || items },
+      props: { items: items },
     };
   },
 });
