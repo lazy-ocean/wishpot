@@ -16,12 +16,7 @@ export const Header = ({ children }: { children: ReactElement }) => {
       {children}
       {user && (
         <UserPanel>
-          <UserIcon
-            src={user.picture as string}
-            alt={user.name as string}
-            width={40}
-            height={40}
-          />
+          <UserIcon src={user.picture} alt={user.name} width={40} height={40} />
           <UserData>
             <SmallHeading>{user.nickname}</SmallHeading>
             <RegularText>{user.email}</RegularText>
