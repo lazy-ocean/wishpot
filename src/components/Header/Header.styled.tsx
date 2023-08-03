@@ -6,8 +6,6 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: flex-end;
   background: transparent;
-  z-index: 100;
-  position: relative;
   align-items: center;
   gap: ${({ theme }) => theme.spacings.xs};
 `;

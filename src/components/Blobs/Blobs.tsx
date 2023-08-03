@@ -3,7 +3,6 @@ import blobOptions from "./BlobOptions";
 import { placeItemsOnMatrix, getRandomValue } from "./utils";
 import { ThemeType } from "../../utils/hooks/useTheme";
 import { DarkTheme, LightTheme } from "../../theme";
-import { BlobsWrapper } from "./Blobs.styled";
 
 const BLOBS_COUNT = 17;
 
@@ -33,6 +32,7 @@ export const Blob = ({
       position: "absolute",
       top: `${top}%`,
       left: `${left}%`,
+      zIndex: "-1",
     }}
   >
     <defs>
@@ -56,7 +56,7 @@ export const Blobs = ({ theme }: { theme: ThemeType }) => {
   const items = placeItemsOnMatrix(BLOBS_COUNT);
 
   return (
-    <BlobsWrapper>
+    <>
       {items.map(({ x, y }, i) => (
         <Blob
           id={`${i}_blob`}
@@ -76,6 +76,6 @@ export const Blobs = ({ theme }: { theme: ThemeType }) => {
           i={i}
         />
       ))}
-    </BlobsWrapper>
+    </>
   );
 };
