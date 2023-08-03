@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react";
 import { getSupabase } from "../../../utils/supabase";
-import { Form, Input, Button } from "./AddForm.styled";
+import { Form, Input } from "./AddForm.styled";
 import { ImageObject, OgObject } from "open-graph-scraper/dist/lib/types";
 import { Wish } from "../../../types";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
 import { SmallHeading } from "../../theme/typography";
+import { Button } from "../Button/Button";
 
 export const AddWishForm = ({
   user,
@@ -58,7 +59,7 @@ export const AddWishForm = ({
           value={content}
           placeholder="Tell me what you wish for..."
         />
-        <Button type="submit">Add</Button>
+        <Button type="submit" label="Add" />
       </div>
     </Form>
   );

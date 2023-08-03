@@ -28,12 +28,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             --r-font: ${typographyFont.style.fontFamily};
           }
         `}</style>
-
-        <Header>
-          <ThemeSwitcher theme={theme} setTheme={setTheme} />
-        </Header>
-        <Blobs theme={theme} />
-        <main>
+        <main style={{ position: "relative", height: "100vh" }}>
+          <Header>
+            <ThemeSwitcher theme={theme} setTheme={setTheme} />
+          </Header>
+          <Blobs theme={theme} />
           <Component {...pageProps} theme={theme} setTheme={setTheme} />
         </main>
       </ThemeProvider>

@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>Future awesome app</title>
+        <title>Wishpot - your ultimate wishlist</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main />

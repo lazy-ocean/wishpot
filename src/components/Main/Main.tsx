@@ -1,23 +1,34 @@
 import React from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
+import { Button } from "../Button/Button";
+import { Container } from "./Main.styled";
+import {
+  MainHeading,
+  RegularHeading,
+  RegularText,
+} from "../../theme/typography";
 
 const Main = () => {
   const { user, error, isLoading } = useUser();
 
   return (
-    <main style={{ position: "relative", zIndex: "1", height: "100vh" }}>
-      <p>Index page</p>
-      {user && !error && !isLoading ? (
-        <button>
-          <Link href="/api/auth/logout">Logout</Link>
-        </button>
-      ) : (
-        <button>
+    <Container>
+      <MainHeading>Wishpot</MainHeading>
+      <RegularHeading>
+        Add links to products you dream about, share your list with your
+        friends!
+      </RegularHeading>
+      {!user ? (
+        <Button>
           <Link href="/api/auth/login">Login</Link>
-        </button>
+        </Button>
+      ) : (
+        <Button>
+          <Link href="/wishes">Go to my list</Link>
+        </Button>
       )}
-    </main>
+    </Container>
   );
 };
 
