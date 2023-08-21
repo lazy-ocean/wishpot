@@ -28,7 +28,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             --r-font: ${typographyFont.style.fontFamily};
           }
         `}</style>
-        <main style={{ position: "relative", height: "100vh" }}>
+        <main style={{ position: "relative", minHeight: "100vh" }}>
           <Header>
             <ThemeSwitcher theme={theme} setTheme={setTheme} />
           </Header>
