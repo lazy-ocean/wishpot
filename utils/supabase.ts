@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-const getSupabase = (access_token: string) => {
+const getSupabase = (access_token?: string) => {
   const options = {};
 
   if (access_token) {

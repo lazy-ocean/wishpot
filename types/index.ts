@@ -10,4 +10,5 @@ export interface Wish {
   image?: string;
   title?: string;
   description?: string;
+  id: string;
 }

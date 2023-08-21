@@ -1,16 +1,27 @@
 import Head from "next/head";
 import Main from "../components/Main/Main";
 
-const Home = () => {
+const Home = ({ wishes }) => {
   return (
-    <div>
+    <>
       <Head>
         <title>Wishpot - your ultimate wishlist</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main />
-    </div>
+      <Main wishes={wishes} />
+    </>
   );
 };
+
+export async function getServerSideProps() {
+  const response = await fetch(`http://localhost:3000/api/wishes`);
+  const wishes = await response.json();
+
+  return {
+    props: {
+      wishes,
+    },
+  };
+}
 
 export default Home;
