@@ -6,6 +6,7 @@ import { Wish } from "../../../types";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
 import { SmallHeading } from "../../theme/typography";
 import { Button } from "../Button/Button";
+import { v4 as uuidv4 } from "uuid";
 
 export const AddWishForm = ({
   user,
@@ -27,13 +28,14 @@ export const AddWishForm = ({
         method: "post",
       });
       const res = (await data.json()) as OgObject;
-
+      const id = uuidv4();
       await supabase.from("items").insert({
         title: res.ogTitle,
         content,
         user_id: user?.sub,
         description: res.ogDescription,
         image: (res.ogImage as ImageObject)?.url || "",
+        id,
       });
       setContent("");
       setWishes({
@@ -41,6 +43,7 @@ export const AddWishForm = ({
         description: res.ogDescription,
         image: (res.ogImage as ImageObject)?.url || "",
         url: content,
+        id,
       });
     } catch (e) {
       console.log(e);
