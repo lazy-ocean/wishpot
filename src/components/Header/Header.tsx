@@ -32,8 +32,3 @@ export const Header = ({ children }: { children: ReactElement }) => {
     </HeaderContainer>
   );
 };
-{
-  /*       <button>
-            <Link href="/api/auth/logout">Logout</Link>
-          </button> */
-}

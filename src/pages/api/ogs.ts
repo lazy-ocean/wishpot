@@ -33,16 +33,3 @@ export default async function handler(
     return res.status(500).json({ error: "Something went wrong" });
   }
 }
-
-/* const withTimeout = (millis: number, promise: Promise<unknown>) => {
-  const timeout = new Promise((resolve, reject) =>
-    setTimeout(() => reject(`Timed out`), millis)
-  );
-  return Promise.race([promise, timeout]);
-};
-
-if (content.includes("https")) {
-  const data = await withTimeout(4000, ogs({ url: content }));
-  item = ((data as { result: OgObject }).result ||
-    null) as FilteredResponse;
-} */
