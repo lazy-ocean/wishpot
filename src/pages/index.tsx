@@ -14,7 +14,7 @@ const Home = ({ wishes }) => {
 };
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3000/api/wishes`);
+  const response = await fetch(`${process.env.APP_URL}/api/wishes`);
   const wishes = await response.json();
 
   return {
