@@ -56,3 +56,12 @@ export const Wrapper = styled.div`
     width: 60%;
   }`}
 `;
+
+export const BinButton = styled.button`
+  background-color: ${({ theme }) => theme.palette.pink};
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  padding: ${({ theme }) => theme.spacings.xxs};
+  border: 2px black solid;
+`;

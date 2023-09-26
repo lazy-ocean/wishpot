@@ -1,11 +1,22 @@
 import React from "react";
-import { Container, ItemImage, Wrapper } from "./card.styled";
+import { Container, ItemImage, Wrapper, BinButton } from "./card.styled";
 import { RegularText } from "../../theme/typography";
 import { Wish } from "../../../types";
+import { Trash } from "react-feather";
 
-const Card = ({ item }: { item: Wish }) => {
+const Card = ({
+  item,
+  handleRemoveWish,
+}: {
+  item: Wish;
+  handleRemoveWish: (id: string) => void;
+}) => {
   return (
     <Wrapper>
+      <BinButton onClick={() => handleRemoveWish(item.id)}>
+        <Trash />
+      </BinButton>
+
       <a href={item.url}>
         <ItemImage
           src={item?.image ?? "https://placehold.co/100"}

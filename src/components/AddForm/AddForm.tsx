@@ -1,12 +1,12 @@
 import { FormEvent, useState } from "react";
-import { getSupabase } from "../../../utils/supabase";
+
 import { Form, Input } from "./AddForm.styled";
 import { ImageObject, OgObject } from "open-graph-scraper/dist/lib/types";
 import { Wish } from "../../../types";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
 import { SmallHeading } from "../../theme/typography";
 import { Button } from "../Button/Button";
-import { v4 as uuidv4 } from "uuid";
+import { addNewWishToDB } from "../../utils/handlers/dbHandlers";
 
 export const AddWishForm = ({
   user,
@@ -15,36 +15,28 @@ export const AddWishForm = ({
   user: UserProfile;
   setWishes: (arg: Wish) => void;
 }) => {
-  const [content, setContent] = useState("");
+  const [url, setUrl] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const supabase = getSupabase(user?.accessToken as string);
 
-    const item = { url: content };
     try {
       const data = await fetch("api/ogs", {
-        body: JSON.stringify(item),
+        body: JSON.stringify({ url }),
         method: "post",
       });
       const res = (await data.json()) as OgObject;
-      const id = uuidv4();
-      await supabase.from("items").insert({
-        title: res.ogTitle,
-        content,
-        user_id: user?.sub,
-        description: res.ogDescription,
-        image: (res.ogImage as ImageObject)?.url || "",
-        id,
-      });
-      setContent("");
-      setWishes({
+      const id = crypto.randomUUID();
+      const newWish = {
         title: res.ogTitle,
         description: res.ogDescription,
         image: (res.ogImage as ImageObject)?.url || "",
-        url: content,
+        url,
         id,
-      });
+      };
+      await addNewWishToDB({ data: { ...newWish, user_id: user?.sub }, user });
+      setUrl("");
+      setWishes(newWish);
     } catch (e) {
       console.log(e);
     }
@@ -58,8 +50,8 @@ export const AddWishForm = ({
       <div>
         <Input
           id="wishform"
-          onChange={(e) => setContent(e.target.value)}
-          value={content}
+          onChange={(e) => setUrl(e.target.value)}
+          value={url}
           placeholder="Tell me what you wish for..."
         />
         <Button type="submit" label="Add" />
