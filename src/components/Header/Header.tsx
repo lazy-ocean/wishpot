@@ -17,7 +17,13 @@ export const Header = ({ children }: { children: ReactElement }) => {
   return (
     <HeaderContainer>
       <Link href={"/"}>
-        <Image src={"/favicon.ico"} alt="Wishpot" width={60} height={60} />
+        <Image
+          src={"/favicon.ico"}
+          alt="Wishpot"
+          width={60}
+          height={60}
+          priority
+        />
       </Link>
 
       {children}

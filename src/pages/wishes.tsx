@@ -50,7 +50,7 @@ const Wishes = ({ items }: { items: Wish[] }) => {
             <AddWishForm user={user} setWishes={handleAddedWishes} />
             {wishes &&
               wishes.map((item, i) => (
-                <Card item={item} key={i} handleRemoveWish={handleRemoveWish} />
+                <Card item={item} key={i} removeWish={handleRemoveWish} />
               ))}
           </Cards>
         )}

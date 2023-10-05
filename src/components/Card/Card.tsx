@@ -1,21 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, ItemImage, Wrapper, BinButton } from "./card.styled";
 import { RegularText } from "../../theme/typography";
 import { Wish } from "../../../types";
 import { Trash } from "react-feather";
+import { Button, ButtonSize } from "../Button/Button";
 
 const Card = ({
   item,
-  handleRemoveWish,
+  removeWish,
 }: {
   item: Wish;
-  handleRemoveWish: (id: string) => void;
+  removeWish?: (id: string) => void;
 }) => {
-  return (
+  const [displayUndo, setDisplayUndo] = useState(false);
+  const [time, setTime] = useState(7);
+
+  const handleRemoveWish = () => {
+    setDisplayUndo(true);
+  };
+
+  useEffect(() => {
+    if (displayUndo) {
+      if (time === 0) {
+        removeWish(item.id);
+        setDisplayUndo(false);
+        return;
+      }
+
+      const interval = setInterval(() => {
+        setTime((prevCount) => prevCount - 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time, displayUndo]);
+
+  return displayUndo ? (
+    <Button size={ButtonSize.l} onClick={() => setDisplayUndo(false)}>
+      <p>Undo deleting? {time}s left...</p>
+    </Button>
+  ) : (
     <Wrapper>
-      <BinButton onClick={() => handleRemoveWish(item.id)}>
-        <Trash />
-      </BinButton>
+      {removeWish && (
+        <BinButton onClick={handleRemoveWish}>
+          <Trash />
+        </BinButton>
+      )}
 
       <a href={item.url}>
         <ItemImage
