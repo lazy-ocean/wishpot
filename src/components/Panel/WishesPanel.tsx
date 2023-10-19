@@ -9,7 +9,7 @@ export const WishesPanel = ({ wishes }: { wishes: Wish[] }) => {
     <Cards>
       <SubHeading>People wished for:</SubHeading>
       <Grid>
-        {wishes.map((wish) => (
+        {wishes?.map((wish) => (
           <Card item={wish} key={wish.id} />
         ))}
       </Grid>
