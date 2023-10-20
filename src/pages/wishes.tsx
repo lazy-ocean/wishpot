@@ -9,6 +9,7 @@ import { Cards } from "../components/Card/card.styled";
 import { AddWishForm } from "../components/AddForm/AddForm";
 import Head from "next/head";
 import { deleteWishFromDB } from "../utils/handlers/dbHandlers";
+import { handleTokenRenewal } from "./api/auth/[...auth0]";
 
 const Wishes = ({ items }: { items: Wish[] }) => {
   const { user, error, isLoading } = useUser();
@@ -61,9 +62,11 @@ const Wishes = ({ items }: { items: Wish[] }) => {
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps({ req, res }) {
+    let session = (await getSession(req, res)) as Session;
     const {
       user: { accessToken },
-    } = (await getSession(req, res)) as Session;
+    } = session;
+    session = await handleTokenRenewal(session);
     const supabase = getSupabase(accessToken as string);
 
     const { data: items } = await supabase.from("items").select("*");
