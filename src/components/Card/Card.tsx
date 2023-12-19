@@ -9,7 +9,7 @@ const Card = ({
   handleRemoveWish,
 }: {
   item: Wish;
-  handleRemoveWish: (id: string) => void;
+  handleRemoveWish?: (id: string) => void;
 }) => {
   return (
     <Wrapper>
