@@ -1,15 +1,27 @@
-import type { NextPage } from "next";
 import Head from "next/head";
+import Main from "../components/Main/Main";
 
-const Home: NextPage = () => {
+const Home = ({ wishes }) => {
   return (
-    <div>
+    <>
       <Head>
-        <title>Future awesome app</title>
+        <title>Wishpot - your ultimate wishlist</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    </div>
+      <Main wishes={wishes} />
+    </>
   );
 };
+
+export async function getServerSideProps() {
+  const response = await fetch(`${process.env.APP_URL}/api/wishes`);
+  const wishes = await response.json();
+
+  return {
+    props: {
+      wishes,
+    },
+  };
+}
 
 export default Home;

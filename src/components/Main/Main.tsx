@@ -1,18 +1,34 @@
 import React from "react";
-import { Header, Container } from "./Main.styled";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Link from "next/link";
+import { Button, ButtonSize } from "../Button/Button";
+import { Container } from "./Main.styled";
+import { MainHeading, RegularHeading } from "../../theme/typography";
+import { WishesPanel } from "../Panel/WishesPanel";
 
-const Main = ({ version }: { version: string }) => {
+const Main = ({ wishes }) => {
+  const { user } = useUser();
+
   return (
-    <main>
+    <>
       <Container>
-        <Header>go build something awesome</Header>
-        <p>now on Next.js v{version}</p>
-        <img
-          src="https://c.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif"
-          alt="cat typing"
-        />
+        <MainHeading>Wishpot</MainHeading>
+        <RegularHeading>
+          Add links to products you dream about, share your list with your
+          friends!
+        </RegularHeading>
+        {!user ? (
+          <Button size={ButtonSize.l}>
+            <Link href="/api/auth/login">Login</Link>
+          </Button>
+        ) : (
+          <Button size={ButtonSize.l}>
+            <Link href="/wishes">Go to my list</Link>
+          </Button>
+        )}
       </Container>
-    </main>
+      <WishesPanel wishes={wishes} />
+    </>
   );
 };
 
