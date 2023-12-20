@@ -16,6 +16,7 @@ export const Button = styled.button<{ size: ButtonSize }>`
   height: 100%;
   cursor: pointer;
   width: fit-content;
+  ${({ size }) => `font-size: ${BUTTON_SIZES[size]}`};
 
   a {
     ${({ size }) => `font-size: ${BUTTON_SIZES[size]}`}

@@ -63,5 +63,6 @@ export const BinButton = styled.button`
   cursor: pointer;
   position: absolute;
   padding: ${({ theme }) => theme.spacings.xxs};
-  border: 2px black solid;
+  border: 2px solid ${({ theme }) => theme.palette.font};
+  color: ${({ theme }) => theme.palette.font};
 `;

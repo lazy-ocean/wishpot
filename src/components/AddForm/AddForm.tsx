@@ -5,7 +5,7 @@ import { ImageObject, OgObject } from "open-graph-scraper/dist/lib/types";
 import { Wish } from "../../../types";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
 import { SmallHeading } from "../../theme/typography";
-import { Button } from "../Button/Button";
+import { Button, ButtonSize } from "../Button/Button";
 import { addNewWishToDB } from "../../utils/handlers/dbHandlers";
 
 export const AddWishForm = ({
@@ -54,7 +54,7 @@ export const AddWishForm = ({
           value={url}
           placeholder="Tell me what you wish for..."
         />
-        <Button type="submit" label="Add" />
+        <Button type="submit" label="Add" size={ButtonSize.l} />
       </div>
     </Form>
   );

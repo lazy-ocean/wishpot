@@ -21,6 +21,11 @@ export const UserIcon = styled(Image)`
 `;
 
 export const UserData = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
+
+  ${({ theme }) => `
+  @media only screen and ${theme.breakpoints.desktop}{
+    display: flex;
+  }`}
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Wrapper } from "../Card/card.styled";
 
 /* const appearAndDisappear = keyframes`
   0% {
@@ -24,6 +25,15 @@ export const AnimatedCard = styled.div<{ delay: string; x: number; y: number }>`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   grid-gap: ${({ theme }) => theme.spacings.s};
+
+  ${({ theme }) => `
+  @media only screen and ${theme.breakpoints.desktop}{
+    grid-template-columns: repeat(2, 1fr);
+  }`}
+
+  ${Wrapper} {
+    width: unset;
+  }
 `;

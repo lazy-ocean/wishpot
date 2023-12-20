@@ -14,6 +14,8 @@ export const Input = styled.input`
   padding: ${({ theme }) => theme.spacings.xxs};
   background-color: ${({ theme }) => theme.palette.bgCard};
   font-family: var(--r-font);
+  color: ${({ theme }) => theme.palette.font};
+  font-size: 16px;
 
   ${({ theme }) => `
   @media only screen and ${theme.breakpoints.desktop}{
